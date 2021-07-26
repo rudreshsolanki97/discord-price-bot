@@ -13,9 +13,12 @@ function SetBotPrice() {
     .then((data) => {
       if (data.data.status === 200) {
         const SRX = data.data.data.SRXUSDT;
-        if (lastMessage) {
+        if (lastMessage && !isNaN(parseFloat(SRX))) {
           lastMessage.guild.me.setNickname(`${SRX}`);
           console.log("set nick name,", data.data.data.SRXUSDT);
+        } else if (lastMessage && isNaN(parseFloat(SRX))) {
+          lastMessage.guild.me.setNickname(`Price Bot`);
+          console.log("set nick name,", "Price Bot");
         }
       }
     })
